@@ -1,0 +1,6 @@
+{
+  "name": "Life Manager",
+  "description": "Your secure modern full-stack life organization hub including schedule manager, expense tracker, goals, notes, reminders, and analytics.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

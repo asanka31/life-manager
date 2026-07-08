@@ -1,0 +1,181 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User account details and settings.",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "The user's unique Firebase Auth ID." },
+        "name": { "type": "string", "description": "Display name." },
+        "email": { "type": "string", "description": "Primary email." },
+        "role": { "type": "string", "enum": ["user", "admin"], "description": "User role." },
+        "createdAt": { "type": "string", "format": "date-time", "description": "Profile creation timestamp." }
+      },
+      "required": ["uid", "name", "email", "role", "createdAt"]
+    },
+    "Task": {
+      "title": "Task",
+      "description": "A scheduled item or todo task.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string", "description": "Unique task ID." },
+        "userId": { "type": "string", "description": "UID of the owner." },
+        "title": { "type": "string", "description": "Task title." },
+        "category": { "type": "string", "description": "Task category (Work, Personal, Health, etc)." },
+        "priority": { "type": "string", "enum": ["low", "medium", "high"], "description": "Task priority level." },
+        "status": { "type": "string", "enum": ["todo", "in_progress", "completed"], "description": "Task progress status." },
+        "dueDate": { "type": "string", "format": "date", "description": "Due date." },
+        "reminderTime": { "type": "string", "description": "Reminder time string." },
+        "repeat": { "type": "string", "enum": ["none", "daily", "weekly", "monthly"], "description": "Recurrence interval." },
+        "notes": { "type": "string", "description": "Additional notes." },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "title", "category", "priority", "status", "dueDate", "createdAt"]
+    },
+    "Goal": {
+      "title": "Goal",
+      "description": "Personal goal to track.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "type": { "type": "string", "enum": ["daily", "weekly", "monthly", "yearly"] },
+        "current": { "type": "number" },
+        "target": { "type": "number" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "title", "type", "current", "target", "createdAt"]
+    },
+    "Note": {
+      "title": "Note",
+      "description": "Rich text and checklist notes.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "content": { "type": "string" },
+        "checklist": { "type": "array" },
+        "tags": { "type": "array" },
+        "images": { "type": "array" },
+        "voiceNotes": { "type": "array" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "title", "content", "createdAt"]
+    },
+    "Expense": {
+      "title": "Expense",
+      "description": "Income or expense record.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "title": { "type": "string" },
+        "amount": { "type": "number" },
+        "type": { "type": "string", "enum": ["income", "expense"] },
+        "category": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "title", "amount", "type", "category", "date", "createdAt"]
+    },
+    "Birthday": {
+      "title": "Birthday",
+      "description": "Birthday reminder item.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "phone": { "type": "string" },
+        "photoUrl": { "type": "string" },
+        "reminderTime": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "name", "date", "createdAt"]
+    },
+    "Medicine": {
+      "title": "Medicine",
+      "description": "Medicine dosage reminder.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "dose": { "type": "string" },
+        "time": { "type": "string" },
+        "repeat": { "type": "string" },
+        "notification": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "name", "dose", "time", "repeat", "notification", "createdAt"]
+    },
+    "ShoppingItem": {
+      "title": "ShoppingItem",
+      "description": "A single shopping list item.",
+      "type": "object",
+      "properties": {
+        "id": { "type": "string" },
+        "userId": { "type": "string" },
+        "name": { "type": "string" },
+        "category": { "type": "string" },
+        "quantity": { "type": "number" },
+        "purchased": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["id", "userId", "name", "category", "quantity", "purchased", "createdAt"]
+    },
+    "Settings": {
+      "title": "Settings",
+      "description": "User preferences and settings.",
+      "type": "object",
+      "properties": {
+        "userId": { "type": "string" },
+        "darkMode": { "type": "boolean" },
+        "language": { "type": "string", "enum": ["en", "si"] },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["userId", "darkMode", "language", "updatedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/User" },
+      "description": "User profile collection, keyed by auth UID."
+    },
+    "/tasks/{taskId}": {
+      "schema": { "$ref": "#/entities/Task" },
+      "description": "User tasks."
+    },
+    "/goals/{goalId}": {
+      "schema": { "$ref": "#/entities/Goal" },
+      "description": "User goals."
+    },
+    "/notes/{noteId}": {
+      "schema": { "$ref": "#/entities/Note" },
+      "description": "User rich notes."
+    },
+    "/expenses/{expenseId}": {
+      "schema": { "$ref": "#/entities/Expense" },
+      "description": "User transaction records."
+    },
+    "/birthdays/{birthdayId}": {
+      "schema": { "$ref": "#/entities/Birthday" },
+      "description": "User birthday reminders."
+    },
+    "/medicines/{medicineId}": {
+      "schema": { "$ref": "#/entities/Medicine" },
+      "description": "User medicine reminders."
+    },
+    "/shopping/{itemId}": {
+      "schema": { "$ref": "#/entities/ShoppingItem" },
+      "description": "User shopping items."
+    },
+    "/settings/{userId}": {
+      "schema": { "$ref": "#/entities/Settings" },
+      "description": "User system settings, keyed by user UID."
+    }
+  }
+}
